@@ -139,6 +139,15 @@ I like Geeksforgeeks
 
 ## 字典和list的特殊用法
 
+### Slicing
+
+```py
+>>> 'hello world'[::-1]
+'dlrow olleh'
+```
+
+Slice notation takes the form `[start:stop:step]`. In this case, we omit the `start` and `stop` positions since we want the whole string. We also use `step = -1`, which means, "repeatedly step from right to left by 1 character".
+
 ### `*`和`**`
 
 The *args will give you all function parameters as a tuple:
