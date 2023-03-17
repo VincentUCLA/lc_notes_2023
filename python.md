@@ -139,6 +139,24 @@ I like Geeksforgeeks
 
 ## 字典和list的特殊用法
 
+### `*`和`**`
+
+The *args will give you all function parameters as a tuple:
+
+```py
+def foo(*args):
+    for a in args:
+        print(a)
+```
+
+The **kwargs will give you all keyword arguments except for those corresponding to a formal parameter as a dictionary.
+
+```py
+def bar(**kwargs):
+    for a in kwargs:
+        print(a, kwargs[a])  
+```
+
 ### filter, map
 
 注意python 3调整了filter和map的用法，从返回一个数组变为返回一个iterator
@@ -267,3 +285,37 @@ Counter({'red': 4, 'blue': 2})
 c = Counter(cats=4, dogs=8)             # a new counter from keyword args
 Counter({'dogs': 8, 'cats': 4})
 ```
+
+## 生成器
+
+生成器可以一边循环一边计算，避免了巨大的内存浪费。
+
+最简单的把列表改成生成器的方式就是把方括号换成圆括号：
+
+```py
+>>> L = [x * x for x in range(10)]
+>>> L
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+>>> g = (x * x for x in range(10))
+>>> for n in g:
+...     print(n)
+```
+
+```py
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+```
+
+这里，最难理解的就是generator函数和普通函数的执行流程不一样。普通函数是顺序执行，遇到return语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行。
+
+```py
+>>> for n in fib(6):
+...     print(n)
+```
+
+要理解generator的工作原理，它是在for循环的过程中不断计算出下一个元素，并在适当的条件结束for循环。对于函数改成的generator来说，遇到return语句或者执行到函数体最后一行语句，就是结束generator的指令，for循环随之结束。
