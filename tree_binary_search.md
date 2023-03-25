@@ -31,7 +31,7 @@
 - 每个节点的右子树，其每一个节点的内容都大于这个节点的内容
 - 不允许重复内容
 
-在二叉搜索树里进行搜索：
+##### 搜索
 
 ```py
 def find(BST T, key k):
@@ -47,15 +47,48 @@ def find(BST T, key k):
 
 时间复杂度为`O (log n)`
 
-插入key：
+##### 插入
 
 - 先搜索，如果找到了key，什么也不做
 - 如果没有找到，则插入一个新的节点
 
 ```py
+def insert(BST T, key k):
+    if T == None:
+        return BST(k)
+    if T.key > k:
+        T.left = insert(T.left, k)
+    elif T.key < k:
+        T.right = insert(T.right, k)
+    return T
 ```
 
+要反对一种陋习，就是Arms length recursion，在base case之前就进行检查，插入特例结果，而不是使用递归：
 
+```py
+if T.left == None:
+    T.left = new BST(k)
+elif T.right == None:
+    T.right = new BST(k)
+```
+
+这种陋习有四个弊病：
+- 降低可读性
+- 降低可维护性
+- 较难验证
+- 对性能没有优化
+
+##### 删除
+
+三个可能性：
+- key是叶子 -- 直接切掉父节点的链接，叶子会被垃圾回收
+- key有一个子节点
+    - 目标是维持BST性质
+    - 把父节点的指向自己的指针，移到子节点上
+    - key这个节点将会被垃圾回收
+- key有两个子节点
+    - 找到左子树里最右侧的叶子，或者右子树里最左侧的叶子
+    - 把这个叶子移到key处，并删除key
 
 ### 94. Binary Tree Inorder Traversal
 

@@ -1,8 +1,8 @@
-# Python 偏门语法参考
+## Python 偏门语法参考
 
-## 从句 （list comprehension）
+### 从句 （list comprehension）
 
-### for
+#### for
 
 ```py
 new_list = [expression(i) for i in old_list if filter(i)]
@@ -23,7 +23,7 @@ for i in old_list:
 dic = {x: idx for idx, x in enumerate(nums)}
 ```
 
-### if 三元运算符
+#### if 三元运算符
 
 ```py
 condition_is_true if condition else condition_is_false
@@ -36,9 +36,9 @@ is_fat = True
 state = "fat" if is_fat else "not fat"
 ```
 
-## 函数的各种奇技淫巧
+### 函数的各种奇技淫巧
 
-### 高阶函数（Higher-Order Functions）
+#### 高阶函数（Higher-Order Functions）
 
 高阶函数可以以函数为参数
 
@@ -82,7 +82,7 @@ def make_adder(n):
     return lambda k: n + k
 ```
 
-### 匿名函数 lambda & sort cmp / key
+#### 匿名函数 lambda & sort cmp / key
 
 ```py
 lambda [arg1 [, agr2,.....argn]] : expression
@@ -100,7 +100,7 @@ student_tuples = [
 sorted(student_tuples, key=lambda student: student[2])
 ```
 
-### Decorator
+#### Decorator
 
 ```py
 # Python code to illustrate
@@ -137,9 +137,9 @@ stringJoin started ...
 I like Geeksforgeeks
 ```
 
-## 字典和list的特殊用法
+### 字典和list的特殊用法
 
-### Slicing
+#### Slicing
 
 ```py
 >>> 'hello world'[::-1]
@@ -148,7 +148,7 @@ I like Geeksforgeeks
 
 Slice notation takes the form `[start:stop:step]`. In this case, we omit the `start` and `stop` positions since we want the whole string. We also use `step = -1`, which means, "repeatedly step from right to left by 1 character".
 
-### `*`和`**`
+#### `*`和`**`
 
 The *args will give you all function parameters as a tuple:
 
@@ -166,7 +166,7 @@ def bar(**kwargs):
         print(a, kwargs[a])  
 ```
 
-### filter, map
+#### filter, map
 
 注意python 3调整了filter和map的用法，从返回一个数组变为返回一个iterator
 
@@ -180,7 +180,7 @@ print([i for i in map(lambda x: x ** 2, range(2, 10))])
 [4, 9, 16, 25, 36, 49, 64, 81]
 ```
 
-### zip, enumerate
+#### zip, enumerate
 
 1. enumerate(list)：返回下标和内部值
 2. zip(list1, list2)：返回list1和list2的值
@@ -192,7 +192,7 @@ print([i for i in zip(range(1, 11), [(i ** 2) for i in range(1, 11)])])
 [(1, 1), (2, 4), (3, 9), (4, 16), (5, 25), (6, 36), (7, 49), (8, 64), (9, 81), (10, 100)]
 ```
 
-### items, keys, values for dict
+#### items, keys, values for dict
 
 ```py
 params = {"key1":"value1", "key2":value2", "key3":"value3"}
@@ -204,7 +204,7 @@ params.items()
 [("key1","value1"),("key2","value2"),("key3","value3")]
 ```
 
-### update for dict
+#### update for dict
 
 ```py
 update([other])
@@ -212,9 +212,9 @@ update([other])
 
 Update the dictionary with the key/value pairs from other, overwriting existing keys. Return None.
 
-## 内置数据结构
+### 内置数据结构
 
-### defaultdict
+#### defaultdict
 
 和dict有两个区别：
 
@@ -226,9 +226,9 @@ next_level = collections.defaultdict(set)
 next_level[n].add(node)
 ```
 
-### heapq
+#### heapq
 
-大名鼎鼎的priority_queue在python里的实现
+大名鼎鼎的priority queue在python里的实现
 
 ```py
 heapify(list)
@@ -259,7 +259,7 @@ nsmallest(n, iterable, key=None)
 
 注意如果iterables里都是tuples，heapq默认把tuple第一个值视为priority
 
-### deque
+#### deque
 
 我是没看出来他跟list有啥区别……
 
@@ -280,7 +280,7 @@ print(d)
 ## 输出: deque([0, 1, 2, 3, 4, 5, 6, 7, 8])
 ```
 
-### Counter
+#### Counter
 
 这东西是极为好用啊，概率统计器
 
@@ -295,7 +295,7 @@ c = Counter(cats=4, dogs=8)             # a new counter from keyword args
 Counter({'dogs': 8, 'cats': 4})
 ```
 
-## 生成器
+### 生成器
 
 生成器可以一边循环一边计算，避免了巨大的内存浪费。
 
