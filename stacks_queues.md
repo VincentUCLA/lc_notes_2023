@@ -1,12 +1,11 @@
+### Stack & Queues
 
-## Stack & Queues
-
-### 堆栈与DFS和BFS
+#### 堆栈与DFS和BFS
 
 1. Stack一般用来模拟DFS，但不如回溯简洁
 2. Queue一般用来模拟BFS
 
-### Infix Expression Evaluation
+#### Infix Expression Evaluation
 
 中缀到后缀转换：要点在于，为什么遇到计算符时要把优先级大于等于自己的运算符全部弹出？因为在后缀表达式里他们放在前面就等于先去计算他们啊；栈在这里实际上就是起到的一个保存计算顺序的作用，而“有控制地”从栈中弹出运算符可以达到把中缀式代换成语法树（也就是后缀式）的目的。
 

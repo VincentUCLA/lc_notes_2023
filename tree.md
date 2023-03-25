@@ -105,33 +105,18 @@ elif T.right == None:
 递归解法：
 
 ```py
-def inorder(self, ret, root):
+def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
     if root == None:
-        return
-    if root.left:
-        self.inorder(ret, root.left)
-    ret.append(root.val)
-    if root.right:
-        self.inorder(ret, root.right)
-
-def inorderTraversal(self, root):
-    """
-    :type root: TreeNode
-    :rtype: List[int]
-    """
-    ret = []
-    self.inorder(ret, root)
-    return ret
+        return []
+    if root.left == None and root.right == None:
+        return [root.val]
+    return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
 ```
 
 迭代解法：
 
 ```py
 def inorderTraversal(self, root):
-    """
-    :type root: TreeNode
-    :rtype: List[int]
-    """
     ret, stk = [], []
     while root or stk:
         if root:
