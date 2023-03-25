@@ -1,8 +1,8 @@
-## Tree
+### 树
 
 树是最简单的数据结构，主要是因为一般不会用迭代来处理树的内容，只有递归的话比较好想
 
-### 定义
+#### 定义
 
 树的定义：
 
@@ -90,7 +90,15 @@ elif T.right == None:
     - 找到左子树里最右侧的叶子，或者右子树里最左侧的叶子
     - 把这个叶子移到key处，并删除key
 
-### 94. Binary Tree Inorder Traversal
+#### 树和图的遍历
+
+- 广度优先（BFS）
+- 深度优先（DFS）
+    - 前序
+    - 中序——使用中序遍历BST得到的是有序数组
+    - 后序
+
+#### 94. Binary Tree Inorder Traversal
 
 基础题，注意递归和迭代两种方法
 
@@ -136,7 +144,7 @@ def inorderTraversal(self, root):
     return ret
 ```
 
-### 226. Invert Binary Tree
+#### 226. Invert Binary Tree
 
 基础题，要注意速度
 
@@ -151,7 +159,7 @@ public TreeNode invertTree(TreeNode root) {
 }
 ```
 
-### 105 & 106. Construct Binary Tree from Preorder and Inorder Traversal (Inorder and Postorder Traversal)
+#### 105 & 106. Construct Binary Tree from Preorder and Inorder Traversal (Inorder and Postorder Traversal)
 
 这题目实际是在考察对前序和中序遍历的理解，前序遍历的话最左侧的项是root，以此去寻找中序遍历数组中的root，中序遍历数组里root的左边是左子树，右边是右子树，注意python里`pop(0)`是弹出最左侧，`pop()`是弹出最右侧
 
@@ -178,7 +186,7 @@ def buildTree(self, inorder, postorder):
     return root
 ```
 
-### 111. Minimum Depth of Binary Tree
+#### 111. Minimum Depth of Binary Tree
 
 Given a binary tree, find its minimum depth. The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
 
@@ -198,9 +206,9 @@ public int minDepth(TreeNode root) {
 }
 ```
 
-### 114. Flatten Binary Tree to Linked List
+#### 114. Flatten Binary Tree to Linked List
 
-### 297. Serialize and Deserialize Binary Tree
+#### 297. Serialize and Deserialize Binary Tree
 
 这题其实没说要你把二叉树弄成啥样……这个解法就是复杂版前序遍历而已
 
@@ -231,7 +239,7 @@ def deserialize(self, data):
     return doit()
 ```
 
-### Ternary Expression to Binary Tree
+#### Ternary Expression to Binary Tree
 
 这题目leetcode里没有，可能因为太简单？两个解法，一个是栈解法：
 
@@ -279,7 +287,7 @@ Node convertExpression(char[] expression, int i) {
 }
 ```
 
-### 572. Subtree of Another Tree
+#### 572. Subtree of Another Tree
 
 这题其实没说要你把二叉树弄成啥样……这个解法就是复杂版前序遍历而已
 
@@ -300,7 +308,7 @@ def isSubtree(self, s, t):
     return helper(s, t, True)
 ```
 
-### 104 & 124. Maximum Depth of Binary Tree & Binary Tree Maximum Path Sum
+#### 104 & 124. Maximum Depth of Binary Tree & Binary Tree Maximum Path Sum
 
 这题名为难题实际上没多难……重点是体会递归关系
 
@@ -329,118 +337,7 @@ private int maxPathDown(TreeNode node) {
 }
 ```
 
-## Binary Search
-
-二分搜索的思想是很简单的，但一次性写对也不容易：
-
-```py
-def binarysearch(self, arr, k):
-    m = len(arr) // 2
-    if k == arr[m]:
-        return arr[m]
-    elif k > arr[m]:
-        return self.binarysearch(arr[m:], k)
-    else:
-        return self.binarysearch(arr[0:m], k)
-```
-
-另外不要拘泥于python提供的简单写法：
-
-```py
-def binarysearch(self, arr, k, lo, hi):
-    m = (lo + hi) // 2
-    if k == arr[m]:
-        return arr[m]
-    elif k < arr[m]:
-        return self.binarysearch(arr, k, lo, m)
-    else:
-        return self.binarysearch(arr, k, m + 1, hi)
-```
-
-### 33 \& 81 \& 153 \& 154. Find Minimum in Rotated Sorted Array II
-
-这个题和153基本一样，简单的二分搜索，唯一的问题是如果两侧一样的话怎么办呢？153题不含重复值，含重复值的154题，去掉重复值不就跟153一样了吗
-
-```py
-def findMin(self, nums):
-    """
-    :type nums: List[int]
-    :rtype: int
-    """
-    l = len(nums)
-    if l < 1:                   # corner cases
-        return 0
-    elif l == 1:
-        return nums[0]
-    elif nums[0] < nums[l-1]:   # local minimum
-        return nums[0]
-    elif nums[0] > nums[l-1]:   # global minimum
-        return min(self.findMin(nums[0:l//2]), self.findMin(nums[l//2:]))
-    elif nums[0] == nums[l-1]:  # remove the repeat value
-        return self.findMin(nums[1:])
-```
-
-### 162. Find Peak Element
-
-这个题目就是分情况讨论的二分搜索，如果找到了peak那当然好，找不到的话，增长趋势就向右找，下跌趋势就向左找，如果搜索范围只有一个那只能返回他，如果有两个就返回那个较大值，一共这是五种情况
-
-```py
-def findPeakElement(self, nums):
-    """
-    :type nums: List[int]
-    :rtype: int
-    """
-    left, right = 0, len(nums) - 1
-    while True:
-        if left == right: return left  # edge case
-        elif left + 1 == right:
-            if nums[left] > nums[right]: return left
-            else: return right
-        m = (left + right) // 2
-        if nums[m-1] < nums[m] and nums[m+1] < nums[m]:
-            return m
-        elif nums[m-1] > nums[m] > nums[m+1]:
-            right = m - 1
-        else:
-            left = m + 1
-```
-
-#### 34. First/Last Occurrence of Binary Search
-
-这个题目也是简单的二分搜索，唯一需要讨论的就是边界条件
-
-```java
-// low and high are ids, n is array length
-int first(int arr[], int low, int high, int x, int n) {
-    if(high >= low) {
-        int mid = low + (high - low)/2;
-        if (( mid == 0 || x > arr[mid - 1]) && arr[mid] == x)
-            return mid;
-        else if(x > arr[mid])
-            return first(arr, (mid + 1), high, x, n);
-        else
-            return first(arr, low, (mid - 1), x, n);
-    }
-    return -1;
-}
-
-int last(int arr[], int low, int high, int x, int n) {
-    if (high >= low) {
-        int mid = low + (high - low)/2;
-        if (( mid == n-1 || x < arr[mid + 1]) && arr[mid] == x)
-            return mid;
-        else if (x < arr[mid])
-            return last(arr, low, (mid - 1), x, n);
-        else
-            return last(arr, (mid + 1), high, x, n);
-    }
-    return -1;
-}
-```
-
-## Binary Search Tree
-
-### 95 & 96. Unique Binary Search Trees
+#### 95 & 96. Unique Binary Search Trees
 
 Given an integer n, generate all structurally unique BST's (binary search trees) that store values 1 ... n.
 
@@ -501,7 +398,7 @@ public int numTrees(int n) {
 }
 ```
 
-### 98. Validate Binary Search Tree
+#### 98. Validate Binary Search Tree
 
 这题用中序遍历简直弱智，所以最好别这么写
 
@@ -515,7 +412,7 @@ def validity(self, root, left, right):
     return self.validity(root.left, left, root.val) and self.validity(root.right, root.val, right)
 ```
 
-### 99. Recover Binary Search Tree
+#### 99. Recover Binary Search Tree
 
 Two elements of a binary search tree (BST) are swapped by mistake. Recover the tree without changing its structure.
 
@@ -569,7 +466,7 @@ private void traverse(TreeNode root) {
 }
 ```
 
-### 108 & 109. Convert Sorted Array / List to Binary Search Tree
+#### 108 & 109. Convert Sorted Array / List to Binary Search Tree
 
 这俩题目一样的套路，分治法，找到中点为root，然后递归左侧构建左子树，递归右侧构建右子树
 
@@ -606,7 +503,7 @@ def listToBST(self, head, tail):
         return root
 ```
 
-### 173. Binary Search Tree Iterator
+#### 173. Binary Search Tree Iterator
 
 这题就是利用BST的中序遍历性质，先把最左边的都塞进栈里，然后就类似于中序遍历，每次只有从栈里弹出来的元素才把他的右子树塞进去
 
@@ -631,7 +528,7 @@ def next(self):
     return node.val
 ```
 
-### 285. Inorder Successor in BST
+#### 285. Inorder Successor in BST
 
 货真价实的简单题，BST中序遍历是单调递增的，所以实际就是在BST里寻找比p大的最小值咯
 
@@ -647,7 +544,7 @@ def inorderSuccessor(self, root, p):
     return ret
 ```
 
-### 235/6 Lowest Common Ancestor of BST / Binary Tree
+#### 235/6 Lowest Common Ancestor of BST / Binary Tree
 
 BST的话要注意方向，如果不是BST的话要注意他是如何变换状态的
 
@@ -689,35 +586,4 @@ def diameterOfBinaryTree(self, root):
         return max(depL, depR) + 1
     depth(root)
     return self.best - 1
-```
-
-## Graph
-
-### 133. Clone graph
-
-这个问题的题眼是，复制一个图，其中每个节点都只能创造一次，第二次调用它的时候你就得重复调用以前使用过的节点
-
-其他的其实就是简单的BFS而已
-
-```py
-def cloneGraph(self, node):
-    if not node:
-        return
-    nodeCopy = UndirectedGraphNode(node.label)
-    dic = {node: nodeCopy}
-    queue = collections.deque([node])
-    while queue:
-        node = queue.popleft()
-        for neighbor in node.neighbors:
-            if neighbor not in dic:
-                # store copy
-                neighborCopy = UndirectedGraphNode(neighbor.label)
-                dic[neighbor] = neighborCopy
-                dic[node].neighbors.append(neighborCopy)
-                queue.append(neighbor)
-            else:
-                # we met this node before, no need to insert it to queue
-                # but necessary to add that edge
-                dic[node].neighbors.append(dic[neighbor])
-    return nodeCopy
 ```
