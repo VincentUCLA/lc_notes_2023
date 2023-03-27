@@ -1,6 +1,6 @@
-### Backtracking & Permutation
+### 回溯搜索
 
-#### Depth First Search
+#### 深度优先搜索 Depth First Search
 
 leetcode四大陈腔滥调：回溯搜索、动态规划、双指针，二分法之首的回溯搜索
 
