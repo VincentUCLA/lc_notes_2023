@@ -1,6 +1,6 @@
 ### Linked List
 
-#### 1. 各种反转链表
+#### 反转链表
 
 ##### 206. Reverse Linked List
 
@@ -128,7 +128,7 @@ public ListNode rotateRight(ListNode head, int n) {
 }
 ```
 
-#### 2. 快慢指针
+#### 快慢指针
 
 ##### 141 & 142. Linked List Cycle I & II
 
@@ -284,7 +284,7 @@ def getIntersectionNode(self, headA, headB):
 # if they didn't meet, they will hit the end at the same iteration, pa == pb == None, return either one of them is the same, None
 ```
 
-#### 3. 其他杂题
+#### 其他杂题
 
 ##### 2. Add Two Numbers
 

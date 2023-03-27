@@ -153,32 +153,6 @@ def insert(self, intervals, newInterval):
     return out
 ```
 
-#### Stack & Queue
-
-##### 155. min stack
-
-这个东西的难点就是如何记录【某一时刻的最小值】，那很简单，每次最小值变得更小，就往栈里连推两次，第一次推最小值，第二次推x；每次最小值变得更大的时候呢，从栈里连弹两次，第一次弹出来的是x，第二次弹出来的是最小值
-
-```java
-class MinStack {
-    int min = Integer.MAX_VALUE;
-    Stack<Integer> stack = new Stack<Integer>();
-    public void push(int x) {
-        if(x <= min){
-            stack.push(min);
-            min=x;
-        }
-        stack.push(x);
-    }
-    public void pop() {
-        if(stack.pop() == min)
-            min=stack.pop();
-    }
-    public int top() { return stack.peek();}
-    public int getMin() { return min;}
-}
-```
-
 #### 奇怪的排序
 
 ##### 220. Contains Duplicate III
