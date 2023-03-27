@@ -1,6 +1,7 @@
 # LeetCode 笔记
 
-- [Python语言技巧](./docs/python.md)
+- 语言技巧
+    - [Python语言技巧](./docs/python.md)
 - 数据结构
     - [树](./docs/tree.md)
     - [链表](./docs/linked_list.md)
