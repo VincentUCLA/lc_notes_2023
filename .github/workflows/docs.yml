@@ -11,7 +11,7 @@ jobs:
       - name: Create files to sync
         run: |
           cp README.md Home.md
-          sed -i 's/.md#/#/g' Home.md
+          sed -i 's/.md//g' Home.md
           sed -i 's/docs\///g' Home.md
       - name: Sync with local action
         uses: kai-tub/external-repo-sync-action@v1
