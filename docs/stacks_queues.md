@@ -1,5 +1,3 @@
-### Stack & Queues
-
 #### 堆栈与DFS和BFS
 
 1. Stack一般用来模拟DFS，但不如回溯简洁

@@ -1,5 +1,3 @@
-### Misc
-
 #### 正则表达式和各种String
 
 ##### 8. String to Integer (atoi)

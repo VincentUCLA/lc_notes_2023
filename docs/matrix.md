@@ -1,5 +1,3 @@
-### Matrix
-
 #### 矩阵翻转操作
 
 ##### 48. Rotate Image

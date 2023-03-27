@@ -1,5 +1,3 @@
-### Linked List
-
 #### 反转链表
 
 ##### 206. Reverse Linked List

@@ -1,5 +1,3 @@
-## System Design 系统设计
-
 ### RDBMS Design NF 数据库设计范式
 
 #### 1NF: 关系中的每个属性都不可再分。

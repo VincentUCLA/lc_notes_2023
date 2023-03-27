@@ -1,5 +1,3 @@
-## Python 偏门语法参考
-
 ### 从句 （list comprehension）
 
 #### for
