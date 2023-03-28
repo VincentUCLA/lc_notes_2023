@@ -10,15 +10,16 @@ Do not allocate extra space for another array, you must do this in place with co
 
 很简单，维持两个指针，都在每次填数字时++，但后面那个指针在每次遇到重复数字时++。
 
-```java
-public int removeDuplicates(int[] nums) {
-    int i = 1, j = 1;
-    while (j<nums.length){
-        if (nums[j‐1] == nums[j]) j++;
-        else nums[i++] = nums[j++];
-    }
-    return i;
-}
+```py
+def removeDuplicates(self, nums: List[int]) -> int:
+    i, j = 1, 1
+    while j < len(nums):
+        if nums[j - 1] == nums[j]: j += 1
+        else:
+            nums[i] = nums[j]
+            i += 1
+            j += 1
+    return i
 ```
 
 ##### 27. Remove Element
@@ -31,16 +32,14 @@ The order of elements can be changed. It doesn't matter what you leave beyond th
 
 双指针母题，每次遇到需要添加的字符就双指针都向前推进，否则就只推进前指针
 
-```java
-public int removeElement(int[] nums, int val) {
-    int l = 0;
-    for (int i = 0; i<nums.length; i++)
-        if (nums[i] != val){
-            nums[l] = nums[i];
-            l++;
-        }
-    return l;
-}
+```py
+def removeElement(self, nums: List[int], val: int) -> int:
+    j = 0
+    for i in range(0, len(nums)):
+        if nums[i] != val:
+            nums[j] = nums[i]
+            j += 1
+    return j
 ```
 
 ##### 75. Sort Color
