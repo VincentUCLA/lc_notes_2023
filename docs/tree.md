@@ -285,7 +285,7 @@ def listToBST(self, head, tail):
         return root
 ```
 
-#### 173. Binary Search Tree Iterator
+##### 173. Binary Search Tree Iterator
 
 这题就是利用BST的中序遍历性质，先把最左边的都塞进栈里，然后就类似于中序遍历，每次只有从栈里弹出来的元素才把他的右子树塞进去
 
@@ -310,7 +310,7 @@ def next(self):
     return node.val
 ```
 
-#### 285. Inorder Successor in BST
+##### 285. Inorder Successor in BST
 
 货真价实的简单题，BST中序遍历是单调递增的，所以实际就是在BST里寻找比p大的最小值咯
 
@@ -326,7 +326,7 @@ def inorderSuccessor(self, root, p):
     return ret
 ```
 
-#### 235/6 Lowest Common Ancestor of BST / Binary Tree
+##### 235/6 Lowest Common Ancestor of BST / Binary Tree
 
 BST的话要注意方向，如果不是BST的话要注意他是如何变换状态的
 
