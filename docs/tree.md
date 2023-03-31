@@ -16,6 +16,14 @@
 - 根节点一般画在树的顶上
 - 叶节点没有子节点
 
+#### 树和图的遍历
+
+- 广度优先（BFS）
+- 深度优先（DFS）
+    - 前序
+    - 中序
+    - 后序
+
 #### 二叉搜索树
 
 序：
@@ -30,6 +38,7 @@
 - 每个节点的左子树，其每一个节点的内容都小于这个节点的内容
 - 每个节点的右子树，其每一个节点的内容都大于这个节点的内容
 - 不允许重复内容
+- 使用中序遍历BST得到的是有序数组
 
 ##### 搜索
 
@@ -90,23 +99,13 @@ elif T.right == None:
     - 找到左子树里最右侧的叶子，或者右子树里最左侧的叶子
     - 把这个叶子移到key处，并删除key
 
-#### 树和图的遍历
-
-- 广度优先（BFS）
-- 深度优先（DFS）
-    - 前序
-    - 中序——使用中序遍历BST得到的是有序数组
-    - 后序
-
 ### 例题
 
 #### 利用树的递归性质
 
 ##### 94, 144, 145. Binary Tree Inorder / Preorder / Postorder Traversal
 
-基础题，注意递归和迭代两种方法
-
-递归解法：
+递归解法有点过于基础了：
 
 ```py
 def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
@@ -122,7 +121,7 @@ def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
     return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
 ```
 
-迭代解法：
+迭代解法的重点在于栈操作的顺序：
 
 ```py
 def inorderTraversal(self, root):
@@ -139,8 +138,6 @@ def inorderTraversal(self, root):
 ```
 
 ##### 226. Invert Binary Tree
-
-基础题，要注意速度
 
 ```java
 def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
@@ -234,7 +231,6 @@ def deserialize(self, data):
     vals = iter(data)
     return doit()
 ```
-
 
 #### BST的性质
 
