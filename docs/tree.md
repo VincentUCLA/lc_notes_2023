@@ -561,7 +561,7 @@ private int maxPathDown(TreeNode node) {
 }
 ```
 
-#### 543. Diameter of Binary Tree
+##### 543. Diameter of Binary Tree
 
 这个做法似乎是唯一解？但反正在二叉树问题里时间复杂度是很不漂亮的一种了
 
