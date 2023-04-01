@@ -18,7 +18,7 @@
 
 ##### 226. Invert Binary Tree
 
-```java
+```py
 def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
     if root == None: return root
     root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
@@ -39,18 +39,13 @@ Given a binary tree, find its minimum depth. The minimum depth is the number of 
 
 这个题目的陷阱在于如果一个节点只有一侧有儿子，你是不能返回min(left, right)的，因为此时有一侧返回值是0
 
-```java
-public int minDepth(TreeNode root) {
-    if (root == null) return 0;
-    // recursion
-    int left = minDepth(root.left);
-    int right = minDepth(root.right);
-    if (left == 0 || right == 0)
-        // one of them is 0
-        return left + right + 1;
-    else
-        return Math.min(left, right) + 1;
-}
+```py
+def minDepth(self, root: Optional[TreeNode]) -> int:
+    if not root: return 0
+    if not root.left or not root.right:
+        return self.minDepth(root.left) + self.minDepth(root.right) + 1
+    else:
+        return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
 ```
 
 ### 树的遍历
@@ -484,7 +479,7 @@ public int numTrees(int n) {
 }
 ```
 
-#### 一些杂题
+### 一些杂题
 
 ##### Ternary Expression to Binary Tree
 
