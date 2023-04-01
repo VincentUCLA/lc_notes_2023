@@ -116,6 +116,35 @@ class MinStack {
 
 BFS思考起来比DFS要简单很多，而且对于很多问题是秒杀……尤其走迷宫BFS一般比较好写
 
+#### 133. Clone graph
+
+这个问题的题眼是，复制一个图，其中每个节点都只能创造一次，第二次调用它的时候你就得重复调用以前使用过的节点
+
+其他的其实就是简单的BFS而已
+
+```py
+def cloneGraph(self, node):
+    if not node:
+        return
+    nodeCopy = UndirectedGraphNode(node.label)
+    dic = {node: nodeCopy}
+    queue = collections.deque([node])
+    while queue:
+        node = queue.popleft()
+        for neighbor in node.neighbors:
+            if neighbor not in dic:
+                # store copy
+                neighborCopy = UndirectedGraphNode(neighbor.label)
+                dic[neighbor] = neighborCopy
+                dic[node].neighbors.append(neighborCopy)
+                queue.append(neighbor)
+            else:
+                # we met this node before, no need to insert it to queue
+                # but necessary to add that edge
+                dic[node].neighbors.append(dic[neighbor])
+    return nodeCopy
+```
+
 ##### 207 \& 210. Course Schedule I \& II
 
 这题目虽然是拓扑排序，BFS秒杀，然而仍然要注意，正向BFS是不如逆向BFS的，因为这题目的实质是寻找图里的环，含环图可以有个开端，但一定没有结尾

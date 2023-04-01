@@ -3,9 +3,8 @@
 - 语言技巧
     - [Python语言技巧](./docs/python.md)
 - [树](./docs/tree.md)
-    - [回溯搜索](./docs/backtracking_permutation.md)
-    - [堆栈](./docs/stacks_queues.md)
-    - [图](./docs/graph.md)
+    - [DFS和排列组合](./docs/backtracking_permutation.md)
+    - [堆栈和BFS](./docs/stacks_queues.md)
 - 线性数据结构
     - [双指针](./docs/two_pointers.md)
     - [排序算法](./docs/sorting.md)
