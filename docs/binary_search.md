@@ -23,8 +23,9 @@ def binarysearch(self, arr, k, lo, hi):
     else:
         return self.binarysearch(arr, k, m + 1, hi)
 ```
+#### 例题
 
-#### 33 \& 81 \& 153 \& 154. Find Minimum in Rotated Sorted Array II
+##### 33 \& 81 \& 153 \& 154. Find Minimum in Rotated Sorted Array II
 
 这个题和153基本一样，简单的二分搜索，唯一的问题是如果两侧一样的话怎么办呢？153题不含重复值，含重复值的154题，去掉重复值不就跟153一样了吗
 
@@ -47,7 +48,7 @@ def findMin(self, nums):
         return self.findMin(nums[1:])
 ```
 
-#### 162. Find Peak Element
+##### 162. Find Peak Element
 
 这个题目就是分情况讨论的二分搜索，如果找到了peak那当然好，找不到的话，增长趋势就向右找，下跌趋势就向左找，如果搜索范围只有一个那只能返回他，如果有两个就返回那个较大值，一共这是五种情况
 
@@ -72,7 +73,7 @@ def findPeakElement(self, nums):
             left = m + 1
 ```
 
-#### 34. First/Last Occurrence of Binary Search
+##### 34. First/Last Occurrence of Binary Search
 
 这个题目也是简单的二分搜索，唯一需要讨论的就是边界条件
 
