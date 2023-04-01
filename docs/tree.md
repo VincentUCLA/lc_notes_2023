@@ -24,6 +24,20 @@
     - 中序
     - 后序
 
+```py
+def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    if root == None: return []
+    return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+
+def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    if not root: return []
+    return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
+
+def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    if not root: return []
+    return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
+```
+
 #### 二叉搜索树
 
 序：
@@ -44,14 +58,10 @@
 
 ```py
 def find(BST T, key k):
-    if T == None:
-        return None
-    if T.key == k:
-        return T
-    elif T.key > k:
-        return find(T.left, k)
-    else:
-        return find(T.right, k)
+    if T == None: return None
+    if T.key == k: return T
+    elif T.key > k: return find(T.left, k)
+    else: return find(T.right, k)
 ```
 
 时间复杂度为`O (log n)`
@@ -63,22 +73,17 @@ def find(BST T, key k):
 
 ```py
 def insert(BST T, key k):
-    if T == None:
-        return BST(k)
-    if T.key > k:
-        T.left = insert(T.left, k)
-    elif T.key < k:
-        T.right = insert(T.right, k)
+    if T == None: return BST(k)
+    if T.key > k: T.left = insert(T.left, k)
+    elif T.key < k: T.right = insert(T.right, k)
     return T
 ```
 
 要反对一种陋习，就是Arms length recursion，在base case之前就进行检查，插入特例结果，而不是使用递归：
 
 ```py
-if T.left == None:
-    T.left = new BST(k)
-elif T.right == None:
-    T.right = new BST(k)
+if T.left == None: T.left = new BST(k)
+elif T.right == None: T.right = new BST(k)
 ```
 
 这种陋习有四个弊病：
@@ -105,23 +110,7 @@ elif T.right == None:
 
 ##### 94, 144, 145. Binary Tree Inorder / Preorder / Postorder Traversal
 
-递归解法有点过于基础了：
-
-```py
-def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-    if root == None: return []
-    return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
-
-def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-    if not root: return []
-    return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
-
-def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-    if not root: return []
-    return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
-```
-
-迭代解法的重点在于栈操作的顺序：
+递归解法有点过于基础了，迭代解法的重点在于栈操作的顺序：
 
 ```py
 def inorderTraversal(self, root):
