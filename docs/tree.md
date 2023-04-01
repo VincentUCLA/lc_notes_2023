@@ -1,8 +1,6 @@
 树是最简单的数据结构，主要是因为一般不会用迭代来处理树的内容，只有递归的话比较好想
 
-### 概念
-
-#### 定义
+### 定义
 
 树的定义：
 
@@ -16,7 +14,46 @@
 - 根节点一般画在树的顶上
 - 叶节点没有子节点
 
-#### 树的遍历
+#### 例题
+
+##### 226. Invert Binary Tree
+
+```java
+def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+    if root == None: return root
+    root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+    return root
+```
+
+##### 104. Maximum Depth of Binary Tree
+
+```py
+def maxDepth(self, root):
+    if root is None: return 0
+    return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+```
+
+##### 111. Minimum Depth of Binary Tree
+
+Given a binary tree, find its minimum depth. The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+这个题目的陷阱在于如果一个节点只有一侧有儿子，你是不能返回min(left, right)的，因为此时有一侧返回值是0
+
+```java
+public int minDepth(TreeNode root) {
+    if (root == null) return 0;
+    // recursion
+    int left = minDepth(root.left);
+    int right = minDepth(root.right);
+    if (left == 0 || right == 0)
+        // one of them is 0
+        return left + right + 1;
+    else
+        return Math.min(left, right) + 1;
+}
+```
+
+### 树的遍历
 
 - 广度优先（BFS）
 - 深度优先（DFS）
@@ -40,7 +77,7 @@ def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
     return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
 ```
 
-#### 递归转化为栈操作
+#### 例题
 
 ##### 94, 144, 145. Binary Tree Inorder / Preorder / Postorder Traversal
 
@@ -87,7 +124,65 @@ def postorderTraversal(self, root: TreeNode) -> List[int]:
     return res
 ```
 
-#### 二叉搜索树
+##### 105 & 106. Construct Binary Tree from Preorder and Inorder Traversal (Inorder and Postorder Traversal)
+
+这题目实际是在考察对前序和中序遍历的理解，前序遍历的话最左侧的项是root，以此去寻找中序遍历数组中的root，中序遍历数组里root的左边是左子树，右边是右子树，注意python里`pop(0)`是弹出最左侧，`pop()`是弹出最右侧
+
+```py
+def buildTree(self, preorder, inorder):
+    if inorder:
+        ind = inorder.index(preorder.pop(0))
+        root = TreeNode(inorder[ind])
+        root.left = self.buildTree(preorder, inorder[:ind])
+        root.right = self.buildTree(preorder, inorder[ind+1:])
+        return root
+```
+
+106的话和105类似，只不过改成了pop掉postorder的最后一项，而且需要注意，因为是从右向左pop，需要先构造右子树，再构造左子树，这个顺序不能搞错
+
+```py
+def buildTree(self, inorder, postorder):
+    if not inorder or not postorder:
+        return None
+    root = TreeNode(postorder.pop())
+    inorderIndex = inorder.index(root.val)
+    root.right = self.buildTree(inorder[inorderIndex+1:], postorder)
+    root.left = self.buildTree(inorder[:inorderIndex], postorder)
+    return root
+```
+
+##### 297. Serialize and Deserialize Binary Tree
+
+这题其实没说要你把二叉树弄成啥样……这个解法就是复杂版前序遍历而已
+
+```py
+def serialize(self, root):
+    def doit(node):
+        if node:
+            vals.append(node.val)
+            doit(node.left)
+            doit(node.right)
+        else:
+            vals.append('#')
+    vals = []
+    doit(root)
+    return vals
+
+def deserialize(self, data):
+    def doit():
+        val = next(vals)
+        if val == '#':
+            return None
+        else:
+            node = TreeNode(val)
+            node.left = doit()
+            node.right = doit()
+            return node
+    vals = iter(data)
+    return doit()
+```
+
+### 二叉搜索树
 
 序：
 
@@ -153,106 +248,7 @@ elif T.right == None: T.right = new BST(k)
     - 找到左子树里最右侧的叶子，或者右子树里最左侧的叶子
     - 把这个叶子移到key处，并删除key
 
-### 例题
-
-#### 利用树的递归性质
-
-##### 226. Invert Binary Tree
-
-```java
-def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-    if root == None: return root
-    root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
-    return root
-```
-
-##### 104. Maximum Depth of Binary Tree
-
-```py
-def maxDepth(self, root):
-    if root is None: return 0
-    return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
-```
-
-##### 111. Minimum Depth of Binary Tree
-
-Given a binary tree, find its minimum depth. The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
-
-这个题目的陷阱在于如果一个节点只有一侧有儿子，你是不能返回min(left, right)的，因为此时有一侧返回值是0
-
-```java
-public int minDepth(TreeNode root) {
-    if (root == null) return 0;
-    // recursion
-    int left = minDepth(root.left);
-    int right = minDepth(root.right);
-    if (left == 0 || right == 0)
-        // one of them is 0
-        return left + right + 1;
-    else
-        return Math.min(left, right) + 1;
-}
-```
-
-##### 105 & 106. Construct Binary Tree from Preorder and Inorder Traversal (Inorder and Postorder Traversal)
-
-这题目实际是在考察对前序和中序遍历的理解，前序遍历的话最左侧的项是root，以此去寻找中序遍历数组中的root，中序遍历数组里root的左边是左子树，右边是右子树，注意python里`pop(0)`是弹出最左侧，`pop()`是弹出最右侧
-
-```py
-def buildTree(self, preorder, inorder):
-    if inorder:
-        ind = inorder.index(preorder.pop(0))
-        root = TreeNode(inorder[ind])
-        root.left = self.buildTree(preorder, inorder[:ind])
-        root.right = self.buildTree(preorder, inorder[ind+1:])
-        return root
-```
-
-106的话和105类似，只不过改成了pop掉postorder的最后一项，而且需要注意，因为是从右向左pop，需要先构造右子树，再构造左子树，这个顺序不能搞错
-
-```py
-def buildTree(self, inorder, postorder):
-    if not inorder or not postorder:
-        return None
-    root = TreeNode(postorder.pop())
-    inorderIndex = inorder.index(root.val)
-    root.right = self.buildTree(inorder[inorderIndex+1:], postorder)
-    root.left = self.buildTree(inorder[:inorderIndex], postorder)
-    return root
-```
-
-##### 297. Serialize and Deserialize Binary Tree
-
-这题其实没说要你把二叉树弄成啥样……这个解法就是复杂版前序遍历而已
-
-```py
-def serialize(self, root):
-    def doit(node):
-        if node:
-            vals.append(node.val)
-            doit(node.left)
-            doit(node.right)
-        else:
-            vals.append('#')
-    vals = []
-    doit(root)
-    return vals
-
-def deserialize(self, data):
-    def doit():
-        val = next(vals)
-        if val == '#':
-            return None
-        else:
-            node = TreeNode(val)
-            node.left = doit()
-            node.right = doit()
-            return node
-    vals = iter(data)
-    return doit()
-```
-
-#### BST的性质
+#### 例题
 
 ##### 98. Validate Binary Search Tree
 
