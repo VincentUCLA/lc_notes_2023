@@ -108,24 +108,6 @@ elif T.right == None: T.right = new BST(k)
 
 #### 利用树的递归性质
 
-##### 94, 144, 145. Binary Tree Inorder / Preorder / Postorder Traversal
-
-递归解法有点过于基础了，迭代解法的重点在于栈操作的顺序：
-
-```py
-def inorderTraversal(self, root):
-    ret, stk = [], []
-    while root or stk:
-        if root:
-            stk.append(root)
-            root = root.left
-        else:
-            root = stk.pop()
-            ret.append(root.val)
-            root = root.right
-    return ret
-```
-
 ##### 226. Invert Binary Tree
 
 ```java
@@ -219,6 +201,26 @@ def deserialize(self, data):
             return node
     vals = iter(data)
     return doit()
+```
+
+#### 递归转化为栈操作
+
+##### 94, 144, 145. Binary Tree Inorder / Preorder / Postorder Traversal
+
+递归解法有点过于基础了，迭代解法的重点在于栈操作的顺序：
+
+```py
+def inorderTraversal(self, root):
+    ret, stk = [], []
+    while root or stk:
+        if root:
+            stk.append(root)
+            root = root.left
+        else:
+            root = stk.pop()
+            ret.append(root.val)
+            root = root.right
+    return ret
 ```
 
 #### BST的性质
