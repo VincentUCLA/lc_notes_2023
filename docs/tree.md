@@ -14,6 +14,8 @@
 - 根节点一般画在树的顶上
 - 叶节点没有子节点
 
+平衡树的定义：任给一个节点，其两个子树的深度差，最大不超过1
+
 #### 例题
 
 ##### 226. Invert Binary Tree
@@ -323,14 +325,14 @@ def next(self):
 
 ```py
 def inorderSuccessor(self, root, p):
-    ret = None
+    res = None
     while root:
         if p.val < root.val:
-            ret = root
+            res = root
             root = root.left
         else:
             root = root.right
-    return ret
+    return res
 ```
 
 ##### 235/6 Lowest Common Ancestor of BST / Binary Tree
@@ -343,21 +345,16 @@ def lowestCommonAncestor(self, root, p, q):
         return self.lowestCommonAncestor(root.right, p, q)
     elif root.val > p.val and root.val > q.val:
         return self.lowestCommonAncestor(root.left, p, q)
-    else:
-        return root
+    else: return root
 
 def lowestCommonAncestor(self, root, p, q):
-    if root is None or root is p or root is q:
-        return root
+    if root is None or root is p or root is q: return root
     else:
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
-        if left and right:
-            return root
-        elif left:
-            return left
-        elif right:
-            return right
+        if left and right: return root
+        elif left: return left
+        elif right: return right
 ```
 
 ##### 99. Recover Binary Search Tree
