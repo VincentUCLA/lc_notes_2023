@@ -263,18 +263,17 @@ def validity(self, root, left, right):
 
 这俩题目一样的套路，分治法，找到中点为root，然后递归左侧构建左子树，递归右侧构建右子树
 
-```java
-public TreeNode sortedArrayToBST(int[] nums) {
-    if (nums.length == 0)
-        return null;
-    else {
-        int mid = nums[nums.length / 2];
-        TreeNode temp = new TreeNode(mid);
-        temp.left = sortedArrayToBST(Arrays.copyOfRange(nums, 0, nums.length / 2));
-        temp.right = sortedArrayToBST(Arrays.copyOfRange(nums, nums.length / 2 + 1, nums.length));
-        return temp;
-    }
-}
+```py
+def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+    if not nums: return None
+    else:
+        l = len(nums)
+        mid = l // 2
+        return TreeNode(
+            val=nums[mid],
+            left=self.sortedArrayToBST(nums[:mid]),
+            right=self.sortedArrayToBST(nums[mid+1:])
+        )
 ```
 
 ```py
@@ -282,14 +281,11 @@ def sortedListToBST(self, head):
     return self.listToBST(head, None)
 
 def listToBST(self, head, tail):
-    if head == tail:
-        return None
+    if head == tail: return None
     else:
-        slow = head
-        fast = head
+        slow, fast = head, head
         while fast != tail and fast.next != tail:
-            slow = slow.next
-            fast = fast.next.next
+            slow, fast = slow.next, fast.next.next
         root = TreeNode(slow.val)
         root.left = self.listToBST(head, slow)
         root.right = self.listToBST(slow.next, tail)
