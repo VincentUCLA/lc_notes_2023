@@ -16,13 +16,15 @@
 - 根节点一般画在树的顶上
 - 叶节点没有子节点
 
-#### 树和图的遍历
+#### 树的遍历
 
 - 广度优先（BFS）
 - 深度优先（DFS）
     - 前序
     - 中序
     - 后序
+
+![树的遍历](https://assets.leetcode.com/users/andvary/image_1556551007.png)
 
 ```py
 def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
@@ -36,6 +38,53 @@ def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
 def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
     if not root: return []
     return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
+```
+
+#### 递归转化为栈操作
+
+##### 94, 144, 145. Binary Tree Inorder / Preorder / Postorder Traversal
+
+递归解法有点过于基础了，迭代解法的重点在于插入栈的顺序，其实是递归操作的反向顺序。
+
+```py
+def preorderTraversal(self, root: TreeNode) -> List[int]:
+    res, stack = [], [(root, False)]
+    while stack:
+        node, visited = stack.pop()  # the last element
+        if node:
+            if visited:  
+                res.append(node.val)
+            else:  # preorder: root -> left -> right
+                stack.append((node.right, False))
+                stack.append((node.left, False))
+                stack.append((node, True))
+    return res
+
+def inorderTraversal(self, root: TreeNode) -> List[int]:
+    res, stack = [], [(root, False)]
+    while stack:
+        node, visited = stack.pop()  # the last element
+        if node:
+            if visited:
+                res.append(node.val)
+            else:  # inorder: left -> root -> right
+                stack.append((node.right, False))
+                stack.append((node, True))
+                stack.append((node.left, False))
+    return res
+
+def postorderTraversal(self, root: TreeNode) -> List[int]:
+    res, stack = [], [(root, False)]
+    while stack:
+        node, visited = stack.pop()  # the last element
+        if node:
+            if visited:
+                res.append(node.val)
+            else:  # postorder: left -> right -> root
+                stack.append((node, True))
+                stack.append((node.right, False))
+                stack.append((node.left, False))
+    return res
 ```
 
 #### 二叉搜索树
@@ -201,26 +250,6 @@ def deserialize(self, data):
             return node
     vals = iter(data)
     return doit()
-```
-
-#### 递归转化为栈操作
-
-##### 94, 144, 145. Binary Tree Inorder / Preorder / Postorder Traversal
-
-递归解法有点过于基础了，迭代解法的重点在于栈操作的顺序：
-
-```py
-def inorderTraversal(self, root):
-    ret, stk = [], []
-    while root or stk:
-        if root:
-            stk.append(root)
-            root = root.left
-        else:
-            root = stk.pop()
-            ret.append(root.val)
-            root = root.right
-    return ret
 ```
 
 #### BST的性质
