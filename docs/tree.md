@@ -86,12 +86,9 @@ def preorderTraversal(self, root: TreeNode) -> List[int]:
     while stack:
         node, visited = stack.pop()  # the last element
         if node:
-            if visited:  
-                res.append(node.val)
+            if visited: res.append(node.val)
             else:  # preorder: root -> left -> right
-                stack.append((node.right, False))
-                stack.append((node.left, False))
-                stack.append((node, True))
+                stack += [(node.right, False), (node.left, False), (node, True)]
     return res
 
 def inorderTraversal(self, root: TreeNode) -> List[int]:
@@ -99,12 +96,9 @@ def inorderTraversal(self, root: TreeNode) -> List[int]:
     while stack:
         node, visited = stack.pop()  # the last element
         if node:
-            if visited:
-                res.append(node.val)
+            if visited: res.append(node.val)
             else:  # inorder: left -> root -> right
-                stack.append((node.right, False))
-                stack.append((node, True))
-                stack.append((node.left, False))
+                stack += [(node.right, False), (node, True), (node.left, False)]
     return res
 
 def postorderTraversal(self, root: TreeNode) -> List[int]:
@@ -112,12 +106,9 @@ def postorderTraversal(self, root: TreeNode) -> List[int]:
     while stack:
         node, visited = stack.pop()  # the last element
         if node:
-            if visited:
-                res.append(node.val)
+            if visited: res.append(node.val)
             else:  # postorder: left -> right -> root
-                stack.append((node, True))
-                stack.append((node.right, False))
-                stack.append((node.left, False))
+                stack += [(node, True), (node.right, False), (node.left, False)]
     return res
 ```
 
@@ -127,23 +118,22 @@ def postorderTraversal(self, root: TreeNode) -> List[int]:
 
 ```py
 def buildTree(self, preorder, inorder):
-    if inorder:
-        ind = inorder.index(preorder.pop(0))
-        root = TreeNode(inorder[ind])
-        root.left = self.buildTree(preorder, inorder[:ind])
-        root.right = self.buildTree(preorder, inorder[ind+1:])
-        return root
+    if not inorder or not preorder: return None
+    root = TreeNode(preorder.pop(0))
+    inorderIndex = inorder.index(root.val)
+    root.left = self.buildTree(preorder, inorder[:inorderIndex])
+    root.right = self.buildTree(preorder, inorder[inorderIndex + 1:])
+    return root
 ```
 
 106的话和105类似，只不过改成了pop掉postorder的最后一项，而且需要注意，因为是从右向左pop，需要先构造右子树，再构造左子树，这个顺序不能搞错
 
 ```py
 def buildTree(self, inorder, postorder):
-    if not inorder or not postorder:
-        return None
+    if not inorder or not postorder: return None
     root = TreeNode(postorder.pop())
     inorderIndex = inorder.index(root.val)
-    root.right = self.buildTree(inorder[inorderIndex+1:], postorder)
+    root.right = self.buildTree(inorder[inorderIndex + 1:], postorder)
     root.left = self.buildTree(inorder[:inorderIndex], postorder)
     return root
 ```
