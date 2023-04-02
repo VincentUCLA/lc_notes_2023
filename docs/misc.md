@@ -11,7 +11,10 @@
 这题目纠结各种情况就是自讨苦吃，本质仅仅是一道正则表达式练习题。还有人用自动机做，我只想说真的是吃饱了撑的……
 
 ```py
-"[‐+]?(([0‐9]+(.[0‐9]*)?)|.[0‐9]+)(e[‐+]?[0‐9]+)?"
+def isNumber(self, s: str) -> bool:
+    import re
+    regex = re.compile(r'^[+-]?((\d+\.?\d*)|(\d*\.?\d+))([eE][+-]?\d+)?$')
+    return bool(regex.match(s.strip()))
 ```
 
 ##### 179. Largest Number
