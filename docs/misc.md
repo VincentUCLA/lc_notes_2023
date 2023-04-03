@@ -40,10 +40,8 @@ def largestNumber(self, num):
 def topKFrequent(self, nums, k):
     freq, h, ret = {}, [], []
     for i in nums:
-        if i in freq:
-            freq[i] += 1
-        else:
-            freq[i] = 1
+        if i in freq: freq[i] += 1
+        else: freq[i] = 1
     for i in freq:
         heapq.heappush(h, (-freq[i], i))
     for i in range(0, k):

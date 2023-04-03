@@ -332,45 +332,27 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
 题目很直接就不再重复叙述了，这题最直截了当的想法是分治调用merge 2 sorted lists的函数，而后者是个人就会写
 
-```java
-public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-    if (l1 == null && l2 == null) return null;
-    else if (l1 == null) return l2;
-    else if (l2 == null) return l1;
-    else {
-        ListNode dummy = new ListNode(0), cur = dummy;
-        ListNode cur1 = l1, cur2 = l2;
-        while (cur1 != null && cur2 != null){
-            if (cur1.val <= cur2.val){
-                cur.next = cur1;
-                cur1 = cur1.next;
-            } else {
-                cur.next = cur2;
-                cur2 = cur2.next;
-            }
-            cur = cur.next;
-        }
-        if (cur1 == null)
-            cur.next = cur2;
-        else if (cur2 == null)
-            cur.next = cur1;
-        return dummy.next;
-    }
-}
+```py
+def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+    cur = res = ListNode()
+    while list1 and list2:
+        if list1.val < list2.val:
+            cur.next = list1
+            list1 = list1.next
+        else:
+            cur.next = list2
+            list2 = list2.next
+        cur = cur.next
+    if list1 or list2:
+        cur.next = list1 if list1 else list2
+    return res.next
 
-public ListNode mergeKLists(ListNode[] lists) {
-    if (lists.length == 0)
-        return null;
-    else if (lists.length == 1)
-        return lists[0];
-    else if (lists.length == 2)
-        return mergeTwoLists(lists[0], lists[1]);
-    else {
-        ListNode[] l1 = Arrays.copyOfRange(lists, 0, lists.length/2);
-        ListNode[] l2 = Arrays.copyOfRange(lists, lists.length/2, lists.length);
-        return mergeTwoLists(mergeKLists(l1), mergeKLists(l2));
-    }
-}
+def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+    if not lists: return None
+    elif len(lists) == 1: return lists[0]
+    else:
+        l = len(lists)
+        return self.mergeTwoLists(self.mergeKLists(lists[:l//2]), self.mergeKLists(lists[l//2:]))
 ```
 
 ##### 138. Copy List with Random Pointer
