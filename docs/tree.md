@@ -138,35 +138,60 @@ def buildTree(self, inorder, postorder):
     return root
 ```
 
-##### 297. Serialize and Deserialize Binary Tree
+##### 297, 449. Serialize and Deserialize Binary Tree / BST
 
 这题其实没说要你把二叉树弄成啥样……这个解法就是复杂版前序遍历而已
 
 ```py
 def serialize(self, root):
-    def doit(node):
+    def preorder(node):
         if node:
-            vals.append(node.val)
-            doit(node.left)
-            doit(node.right)
+            vals.append(str(node.val))
+            preorder(node.left)
+            preorder(node.right)
         else:
             vals.append('#')
     vals = []
-    doit(root)
-    return vals
+    preorder(root)
+    return " ".join(vals)
 
 def deserialize(self, data):
-    def doit():
+    def preorder():
         val = next(vals)
         if val == '#':
             return None
         else:
-            node = TreeNode(val)
-            node.left = doit()
-            node.right = doit()
+            node = TreeNode(int(val))
+            node.left = preorder()
+            node.right = preorder()
             return node
-    vals = iter(data)
-    return doit()
+    vals = iter(data.split())
+    return preorder()
+```
+
+BST版本比起原版，可以通过对BST性质的利用，省略掉空节点的叙述
+
+```py
+def serialize(self, root):
+    def preorder(node):
+        if node:
+            vals.append(str(node.val))
+            preorder(node.left)
+            preorder(node.right)
+    vals = []
+    preorder(root)
+    return " ".join(vals)
+
+def deserialize(self, data):
+    def preorder(minVal, maxVal):
+        if vals and minVal < vals[0] < maxVal:
+            val = vals.pop(0)
+            node = TreeNode(val)
+            node.left = preorder(minVal, val)
+            node.right = preorder(val, maxVal)
+            return node
+    vals = [int(val) for val in data.split()]
+    return preorder(-2**32, 2**32)
 ```
 
 ### 二叉搜索树
