@@ -1,15 +1,15 @@
 ### SEO
 
-1. Title tag: Google看这个
-1. Meta: Google不看，但是用户会看
-1. 域名要尽可能易懂
-1. 内容中的Keywords: 
+1. [x] Title tag: Google看这个
+1. [x] Meta: Google不看，但是用户会看
+1. [x] 域名要尽可能易懂
+1. [ ] 有逻辑的URL结构：在URL中插入地址
+1. [ ] 内容中的Keywords: 
     1. 需要使用vix，styleable生成一个主页，在内容中反复出现关键字
-1. 有逻辑的URL结构：在URL中插入地址
-1. Site map：州、都市圈、neighborhood+最大employer
-1. 在主页插入图标链接
-1. 主页标题插入地址，"near ..."
-1. 处理react的可选渲染对象
+1. [ ] Site map：州、都市圈、neighborhood+最大employer
+1. [ ] 在主页插入图标链接
+1. [ ] 主页标题插入地址，"near ..."
+1. [ ] 处理react的可选渲染对象
 
 ### Vix
 
