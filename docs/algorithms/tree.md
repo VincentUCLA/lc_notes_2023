@@ -22,7 +22,8 @@
 
 ```py
 def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-    if root == None: return root
+    if root == None:
+        return root
     root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
     return root
 ```
@@ -31,7 +32,8 @@ def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
 
 ```py
 def maxDepth(self, root):
-    if root is None: return 0
+    if root is None:
+        return 0
     return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 ```
 
@@ -43,7 +45,8 @@ Given a binary tree, find its minimum depth. The minimum depth is the number of 
 
 ```py
 def minDepth(self, root: Optional[TreeNode]) -> int:
-    if not root: return 0
+    if not root:
+        return 0
     if not root.left or not root.right:
         return self.minDepth(root.left) + self.minDepth(root.right) + 1
     else:
@@ -62,15 +65,18 @@ def minDepth(self, root: Optional[TreeNode]) -> int:
 
 ```py
 def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-    if root == None: return []
+    if root == None:
+        return []
     return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
 
 def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-    if not root: return []
+    if not root:
+        return []
     return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
 
 def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-    if not root: return []
+    if not root:
+        return []
     return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
 ```
 
@@ -118,7 +124,8 @@ def postorderTraversal(self, root: TreeNode) -> List[int]:
 
 ```py
 def buildTree(self, preorder, inorder):
-    if not inorder or not preorder: return None
+    if not inorder or not preorder:
+        return None
     root = TreeNode(preorder.pop(0))
     inorderIndex = inorder.index(root.val)
     root.left = self.buildTree(preorder, inorder[:inorderIndex])
@@ -130,7 +137,8 @@ def buildTree(self, preorder, inorder):
 
 ```py
 def buildTree(self, inorder, postorder):
-    if not inorder or not postorder: return None
+    if not inorder or not postorder:
+        return None
     root = TreeNode(postorder.pop())
     inorderIndex = inorder.index(root.val)
     root.right = self.buildTree(inorder[inorderIndex + 1:], postorder)
@@ -214,10 +222,14 @@ def deserialize(self, data):
 
 ```py
 def find(BST T, key k):
-    if T == None: return None
-    if T.key == k: return T
-    elif T.key > k: return find(T.left, k)
-    else: return find(T.right, k)
+    if T == None:
+        return None
+    if T.key == k:
+        return T
+    elif T.key > k:
+        return find(T.left, k)
+    else:
+        return find(T.right, k)
 ```
 
 时间复杂度为`O (log n)`
@@ -229,17 +241,22 @@ def find(BST T, key k):
 
 ```py
 def insert(BST T, key k):
-    if T == None: return BST(k)
-    if T.key > k: T.left = insert(T.left, k)
-    elif T.key < k: T.right = insert(T.right, k)
+    if T == None:
+        return BST(k)
+    if T.key > k:
+        T.left = insert(T.left, k)
+    elif T.key < k:
+        T.right = insert(T.right, k)
     return T
 ```
 
 要反对一种陋习，就是Arms length recursion，在base case之前就进行检查，插入特例结果，而不是使用递归：
 
 ```py
-if T.left == None: T.left = new BST(k)
-elif T.right == None: T.right = new BST(k)
+if T.left == None:
+    T.left = new BST(k)
+elif T.right == None:
+    T.right = new BST(k)
 ```
 
 这种陋习有四个弊病：
@@ -271,8 +288,10 @@ def isValidBST(self, root):
     return self.validity(root, -2**32, 2**32)
 
 def validity(self, root, left, right):
-    if not root: return True
-    if root.val >= right or root.val <= left: return False
+    if not root:
+        return True
+    if root.val >= right or root.val <= left:
+        return False
     return self.validity(root.left, left, root.val) and self.validity(root.right, root.val, right)
 ```
 
@@ -282,7 +301,8 @@ def validity(self, root, left, right):
 
 ```py
 def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
-    if not nums: return None
+    if not nums:
+        return None
     else:
         l = len(nums)
         mid = l // 2
@@ -298,7 +318,8 @@ def sortedListToBST(self, head):
     return self.listToBST(head, None)
 
 def listToBST(self, head, tail):
-    if head == tail: return None
+    if head == tail:
+        return None
     else:
         slow, fast = head, head
         while fast != tail and fast.next != tail:
@@ -360,16 +381,21 @@ def lowestCommonAncestor(self, root, p, q):
         return self.lowestCommonAncestor(root.right, p, q)
     elif root.val > p.val and root.val > q.val:
         return self.lowestCommonAncestor(root.left, p, q)
-    else: return root
+    else:
+        return root
 
 def lowestCommonAncestor(self, root, p, q):
-    if root is None or root is p or root is q: return root
+    if root is None or root is p or root is q:
+        return root
     else:
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
-        if left and right: return root
-        elif left: return left
-        elif right: return right
+        if left and right:
+            return root
+        elif left:
+            return left
+        elif right:
+            return right
 ```
 
 ##### 99. Recover Binary Search Tree
@@ -588,7 +614,8 @@ private int maxPathDown(TreeNode node) {
 def diameterOfBinaryTree(self, root):
     self.best = 1
     def depth(root):
-        if not root: return 0
+        if not root:
+            return 0
         depL = depth(root.left)
         depR = depth(root.right)
         self.best = max(self.best, depL + depR + 1)
