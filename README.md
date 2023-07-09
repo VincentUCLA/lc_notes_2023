@@ -1,7 +1,7 @@
 # LeetCode 笔记
 
 - 语言技巧
-    - [Python语言技巧](./docs/algorithms/python.md)
+    - [Python语言技巧](./docs/python.md)
 - [树](./docs/algorithms/tree.md)
     - [DFS和排列组合](./docs/algorithms/backtracking_permutation.md)
     - [堆栈和BFS](./docs/algorithms/stacks_queues.md)
